@@ -5,6 +5,7 @@
 Game::Game() : running(true){
 	srand(time(0));
 	window.create(sf::VideoMode(SCREEN_WIDTH, SCREEN_HEIGHT), "GAME");
+	window.setView(sf::View(sf::FloatRect(0, 0, 800, 600)));
 	window.setVerticalSyncEnabled(true);
 
 	room.generateRooms();
@@ -35,6 +36,10 @@ void Game::processEvents(){
 	while(window.pollEvent(event)){
 		if(event.type == sf::Event::Closed)
 			running = false;
+		if (event.type == sf::Event::Resized){
+			// update the views to the new size of the window
+			camera.setSize(sf::Vector2f(event.size.width, event.size.height));
+		}
 		if(currentState == PLAY){
 			if(event.type == sf::Event::KeyPressed && 
 					event.key.code == sf::Keyboard::Escape)

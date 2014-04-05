@@ -177,7 +177,8 @@ void Player::draw(sf::RenderWindow &window){
 }
 
 void Player::drawStats(sf::RenderWindow &window){
-	window.setView(window.getDefaultView());
+	// Reset view as stats/dim shouldn't follow player
+	window.setView(sf::View(sf::FloatRect(0, 0, 800, 600)));
 	screenDim.setTexture(screenDimText);
 	window.draw(screenDim);
 	if(inventoryOpened)
